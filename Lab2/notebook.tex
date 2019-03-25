@@ -1,0 +1,999 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW2-236079}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+\end{Verbatim}
+
+
+    \hypertarget{question-1}{%
+\section{Question 1}\label{question-1}}
+
+    \hypertarget{problem-1}{%
+\subsection{Problem 1}\label{problem-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{plots} \PY{k}{import} \PY{n}{normal\PYZus{}plot}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+            \PY{n}{normal\PYZus{}plot}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{problem-2}{%
+\subsection{Problem 2}\label{problem-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{plots} \PY{k}{import} \PY{n}{plot\PYZus{}distributions}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{plot\PYZus{}distributions}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{,} 
+                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal(0,0.5)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal(0,2)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{plot\PYZus{}distributions}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{standard\PYZus{}t}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{standard\PYZus{}t}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,} 
+                           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Student(2)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Student(20)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plot\PYZus{}distributions}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{exponential}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{exponential}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{,}
+                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Exponential(0.25)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Exponential(4)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plot\PYZus{}distributions}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{beta}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{beta}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{,}
+                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Beta(10,90)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Beta(20,80)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{plots} \PY{k}{import} \PY{n}{qq\PYZus{}plots}
+        \PY{n}{qq\PYZus{}plots}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,} 
+                 \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal(0,0.5)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normal(0,2)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{qq\PYZus{}plots}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{standard\PYZus{}t}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{standard\PYZus{}t}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,} 
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Student(2)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Student(20)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{qq\PYZus{}plots}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{exponential}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{exponential}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Exponential(0.25)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Exponential(4)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{qq\PYZus{}plots}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{beta}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{beta}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Beta(10,90)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Beta(20,80)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{interpretation}{%
+\subsubsection{Interpretation}\label{interpretation}}
+
+A QQ-Plot shows the correlation between the theoretical quantiles and
+the actual values. Here, the theoretical quantiles are taken from a
+standard normal. This means that the more the samples (blue) follow the
+theoretical line (red), then the distribution is normal. If they are
+different, here is how to interprete:
+
+\hypertarget{s-shape}{%
+\paragraph{S-Shape}\label{s-shape}}
+
+?
+
+\hypertarget{u-shape}{%
+\paragraph{U-Shape}\label{u-shape}}
+
+A U-shape shows the sampeled distribution is right-skewed (and so an
+\texttt{n-shape} shows a left-skewed distribution). This is coherent
+with the QQ plot of the exponential distribution: exponential is heavily
+right-skewed (by definition) and thus the plot
+
+    \hypertarget{question-2}{%
+\section{Question 2}\label{question-2}}
+
+    \hypertarget{problem-3}{%
+\subsection{Problem 3}\label{problem-3}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{compute\PYZus{}waypoints}
+         \PY{c+c1}{\PYZsh{} Configuration}
+         \PY{n}{S} \PY{o}{=} \PY{l+m+mi}{236097}
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,} \PY{c+c1}{\PYZsh{} people}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{side\PYZus{}l}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{1000}\PY{p}{,} \PY{c+c1}{\PYZsh{} meters}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time\PYZus{}limit}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{86400}\PY{p}{,} \PY{c+c1}{\PYZsh{} seconds, = 1day}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{v\PYZus{}min}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:}  \PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{+} \PY{l+m+mf}{0.02}\PY{o}{*}\PY{p}{(}\PY{n}{S}\PY{o}{\PYZpc{}}\PY{k}{21})),
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{v\PYZus{}max}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{p}{(}\PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mf}{0.2}\PY{o}{*}\PY{p}{(}\PY{n}{S}\PY{o}{\PYZpc{}}\PY{k}{11}))
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{records} \PY{o}{=} \PY{n}{compute\PYZus{}waypoints}\PY{p}{(}\PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{o}{\PYZpc{}}\PY{k}{timeit} compute\PYZus{}waypoints
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+18.6 ns ± 0.284 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)
+
+    \end{Verbatim}
+
+    Running the program for 1 days takes only a few nanoseconds
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{num\PYZus{}waypoints\PYZus{}per\PYZus{}mobile} \PY{o}{=} \PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{records}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{num\PYZus{}waypoints\PYZus{}per\PYZus{}mobile}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Min:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{num\PYZus{}waypoints\PYZus{}per\PYZus{}mobile}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Max:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{num\PYZus{}waypoints\PYZus{}per\PYZus{}mobile}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean: 321.41
+Min: 294
+Max: 359
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{f}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{,} \PY{n}{ax3}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} plot all}
+         \PY{k}{for} \PY{n}{rec} \PY{o+ow}{in} \PY{n}{records}\PY{p}{:}
+             \PY{n}{posi\PYZus{}x} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{)}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}\PY{p}{)}
+             \PY{n}{posi\PYZus{}y} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{y} \PY{k}{for} \PY{p}{(}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{posi\PYZus{}x}\PY{p}{,}\PY{n}{posi\PYZus{}y}\PY{p}{)}
+             \PY{n}{ax1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{posi\PYZus{}x}\PY{p}{,} \PY{n}{posi\PYZus{}y}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{ax1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trajectory all users}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Waypoints all user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot 1}
+         \PY{n}{rec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{records}\PY{p}{)}
+         \PY{n}{posi\PYZus{}x} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{)}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}\PY{p}{)}
+         \PY{n}{posi\PYZus{}y} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{y} \PY{k}{for} \PY{p}{(}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{posi\PYZus{}x}\PY{p}{,}\PY{n}{posi\PYZus{}y}\PY{p}{)}
+         \PY{n}{ax2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{posi\PYZus{}x}\PY{p}{,} \PY{n}{posi\PYZus{}y}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{ax2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trajectory 1 users}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Waypoints 1 user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot 8}
+         \PY{k}{for} \PY{n}{rec} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{records}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+             \PY{n}{posi\PYZus{}x} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{)}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}\PY{p}{)}
+             \PY{n}{posi\PYZus{}y} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{y} \PY{k}{for} \PY{p}{(}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax3}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{posi\PYZus{}x}\PY{p}{,}\PY{n}{posi\PYZus{}y}\PY{p}{)}
+             \PY{n}{ax3}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{posi\PYZus{}x}\PY{p}{,} \PY{n}{posi\PYZus{}y}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{ax3}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trajectory 8 users}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax3}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Waypoints 8 user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-3}{%
+\section{Question 3}\label{question-3}}
+
+    \hypertarget{event-average-viewpoint}{%
+\subsection{Event average viewpoint}\label{event-average-viewpoint}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{rec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{records}\PY{p}{)}
+         \PY{n}{speeds} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{speeds}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Event average for one user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Text(0.5, 1.0, 'Event average for one user')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{speeds} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{rec} \PY{o+ow}{in} \PY{n}{records} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{speeds}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Event average for all users}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{rec} \PY{o+ow}{in} \PY{n}{records} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{rec} \PY{o+ow}{in} \PY{n}{records} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{rec}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist2d}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{time-average-viewpoint}{%
+\subsection{Time average viewpoint}\label{time-average-viewpoint}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{speed\PYZus{}at\PYZus{}time\PYZus{}t}\PY{p}{,} \PY{n}{position\PYZus{}at\PYZus{}time\PYZus{}t}
+         
+         \PY{n}{random\PYZus{}dude} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{records}\PY{p}{)}
+         \PY{n}{ten\PYZus{}seconds} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} every 10 seconds}
+         \PY{n}{speeds\PYZus{}every\PYZus{}10\PYZus{}sec} \PY{o}{=} \PY{p}{[}\PY{n}{speed\PYZus{}at\PYZus{}time\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{random\PYZus{}dude}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{ten\PYZus{}seconds}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{speeds\PYZus{}every\PYZus{}10\PYZus{}sec}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time average for one mobile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{speeds\PYZus{}every\PYZus{}10\PYZus{}sec} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{ten\PYZus{}seconds} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} every 10 seconds}
+         \PY{k}{for} \PY{n}{person} \PY{o+ow}{in} \PY{n}{records}\PY{p}{:}
+             \PY{n}{speeds} \PY{o}{=} \PY{p}{[}\PY{n}{speed\PYZus{}at\PYZus{}time\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{person}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{ten\PYZus{}seconds}\PY{p}{]}
+             \PY{n}{speeds\PYZus{}every\PYZus{}10\PYZus{}sec}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{speeds}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{speeds\PYZus{}every\PYZus{}10\PYZus{}sec}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time average for all mobiles}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{ten\PYZus{}seconds} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} every 10 seconds}
+         \PY{n}{positions\PYZus{}evers\PYZus{}10\PYZus{}secs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{person} \PY{o+ow}{in} \PY{n}{records}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{:}
+             \PY{n}{positions} \PY{o}{=} \PY{p}{[}\PY{n}{position\PYZus{}at\PYZus{}time\PYZus{}t}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{person}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{ten\PYZus{}seconds}\PY{p}{]}
+             \PY{n}{positions\PYZus{}evers\PYZus{}10\PYZus{}secs}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{positions}\PY{p}{)}
+         
+         \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{positions\PYZus{}evers\PYZus{}10\PYZus{}secs}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist2d}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-4}{%
+\section{Question 4}\label{question-4}}
+
+\hypertarget{problem-1}{%
+\subsection{Problem 1}\label{problem-1}}
+
+\hypertarget{a}{%
+\subsubsection{a)}\label{a}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{from} \PY{n+nn}{plots} \PY{k}{import} \PY{n}{plot\PYZus{}boxplots\PYZus{}ci}
+         \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{get\PYZus{}average}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{curr\PYZus{}N} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{get\PYZus{}average}\PY{p}{(}\PY{n}{records}\PY{p}{,} \PY{n}{curr\PYZus{}N}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{finding-ci-for-median}{%
+\paragraph{Finding CI for median}\label{finding-ci-for-median}}
+
+This is found using theorem 2.1. We have 100 values. This value is too
+large to look up in the table. So we estimate it using the formula
+\[\Big[\big\lfloor 0.50n - 0.980\sqrt{n}\rfloor\ ,\ \lceil 0.50n + 1 + 0.980\sqrt{n}\big\rceil\Big]\]
+with \(n=100\), which yields us the results
+\(j = \lfloor 50 - 9.8 \rfloor = 40\) and
+\(k = \lceil 50 + 9.8 \rceil = 61\) So we select the 40th and 61st
+values as our CI for median
+
+    \hypertarget{finding-ci-for-mean}{%
+\paragraph{Finding CI for mean}\label{finding-ci-for-mean}}
+
+We use theorem 2.2.2, with 100 values:
+\[\hat\mu \pm 0.196 s  \text{ with } s = \frac{1}{100}\sum(x_i-\hat\mu)^2\text{ and }\hat\mu = \frac{1}{100} \sum x_i\]
+We could have used theorem 2.2.3, as the values seem to be normally
+distributed, but as we have a lot of values, the two theorems are
+similar enough to use 2.2.2 without risks. However, with \(n \geq 30\),
+the two are roughly equal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plot\PYZus{}boxplots\PYZus{}ci}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{j}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{61}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{n}{curr\PYZus{}N}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/IPython/core/formatters.py in \_\_call\_\_(self, obj)
+        339                 pass
+        340             else:
+    --> 341                 return printer(obj)
+        342             \# Finally look for special method names
+        343             method = get\_real\_method(obj, self.print\_method)
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/IPython/core/pylabtools.py in <lambda>(fig)
+        242 
+        243     if 'png' in formats:
+    --> 244         png\_formatter.for\_type(Figure, lambda fig: print\_figure(fig, 'png', **kwargs))
+        245     if 'retina' in formats or 'png2x' in formats:
+        246         png\_formatter.for\_type(Figure, lambda fig: retina\_figure(fig, **kwargs))
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/IPython/core/pylabtools.py in print\_figure(fig, fmt, bbox\_inches, **kwargs)
+        126 
+        127     bytes\_io = BytesIO()
+    --> 128     fig.canvas.print\_figure(bytes\_io, **kw)
+        129     data = bytes\_io.getvalue()
+        130     if fmt == 'svg':
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/backend\_bases.py in print\_figure(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox\_inches, **kwargs)
+       2047                         orientation=orientation,
+       2048                         dryrun=True,
+    -> 2049                         **kwargs)
+       2050                     renderer = self.figure.\_cachedRenderer
+       2051                     bbox\_artists = kwargs.pop("bbox\_extra\_artists", None)
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/backends/backend\_agg.py in print\_png(self, filename\_or\_obj, *args, **kwargs)
+        508 
+        509         """
+    --> 510         FigureCanvasAgg.draw(self)
+        511         renderer = self.get\_renderer()
+        512 
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/backends/backend\_agg.py in draw(self)
+        400         toolbar = self.toolbar
+        401         try:
+    --> 402             self.figure.draw(self.renderer)
+        403             \# A GUI class may be need to update a window using this draw, so
+        404             \# don't forget to call the superclass.
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/artist.py in draw\_wrapper(artist, renderer, *args, **kwargs)
+         48                 renderer.start\_filter()
+         49 
+    ---> 50             return draw(artist, renderer, *args, **kwargs)
+         51         finally:
+         52             if artist.get\_agg\_filter() is not None:
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/figure.py in draw(self, renderer)
+       1647 
+       1648             mimage.\_draw\_list\_compositing\_images(
+    -> 1649                 renderer, self, artists, self.suppressComposite)
+       1650 
+       1651             renderer.close\_group('figure')
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/image.py in \_draw\_list\_compositing\_images(renderer, parent, artists, suppress\_composite)
+        136     if not\_composite or not has\_images:
+        137         for a in artists:
+    --> 138             a.draw(renderer)
+        139     else:
+        140         \# Composite any adjacent images together
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/artist.py in draw\_wrapper(artist, renderer, *args, **kwargs)
+         48                 renderer.start\_filter()
+         49 
+    ---> 50             return draw(artist, renderer, *args, **kwargs)
+         51         finally:
+         52             if artist.get\_agg\_filter() is not None:
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/axes/\_base.py in draw(self, renderer, inframe)
+       2626             renderer.stop\_rasterizing()
+       2627 
+    -> 2628         mimage.\_draw\_list\_compositing\_images(renderer, self, artists)
+       2629 
+       2630         renderer.close\_group('axes')
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/image.py in \_draw\_list\_compositing\_images(renderer, parent, artists, suppress\_composite)
+        136     if not\_composite or not has\_images:
+        137         for a in artists:
+    --> 138             a.draw(renderer)
+        139     else:
+        140         \# Composite any adjacent images together
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/artist.py in draw\_wrapper(artist, renderer, *args, **kwargs)
+         48                 renderer.start\_filter()
+         49 
+    ---> 50             return draw(artist, renderer, *args, **kwargs)
+         51         finally:
+         52             if artist.get\_agg\_filter() is not None:
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/text.py in draw(self, renderer)
+       2387             if self.arrow\_patch.figure is None and self.figure is not None:
+       2388                 self.arrow\_patch.figure = self.figure
+    -> 2389             self.arrow\_patch.draw(renderer)
+       2390 
+       2391         \# Draw text, including FancyBboxPatch, after FancyArrowPatch.
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/patches.py in draw(self, renderer)
+       4307         \# dpi\_cor = renderer.points\_to\_pixels(1.)
+       4308         self.set\_dpi\_cor(renderer.points\_to\_pixels(1.))
+    -> 4309         path, fillable = self.get\_path\_in\_displaycoord()
+       4310 
+       4311         if not cbook.iterable(fillable):
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/patches.py in get\_path\_in\_displaycoord(self)
+       4256             self.get\_mutation\_scale() * dpi\_cor,
+       4257             self.get\_linewidth() * dpi\_cor,
+    -> 4258             self.get\_mutation\_aspect())
+       4259 
+       4260         \# if not fillable:
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/patches.py in \_\_call\_\_(self, path, mutation\_size, linewidth, aspect\_ratio)
+       3216                     return path\_mutated, fillable
+       3217             else:
+    -> 3218                 return self.transmute(path, mutation\_size, linewidth)
+       3219 
+       3220     class \_Curve(\_Base):
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/patches.py in transmute(self, path, mutation\_size, linewidth)
+       3716                 tail\_width = self.tail\_width * mutation\_size
+       3717                 tail\_left, tail\_right = get\_parallels(arrow\_out,
+    -> 3718                                                       tail\_width / 2.)
+       3719 
+       3720                 patch\_path = [(Path.MOVETO, tail\_right[0]),
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/bezier.py in get\_parallels(bezier2, width)
+        379         cmx\_left, cmy\_left = get\_intersection(c1x\_left, c1y\_left, cos\_t1,
+        380                                               sin\_t1, c2x\_left, c2y\_left,
+    --> 381                                               cos\_t2, sin\_t2)
+        382 
+        383         cmx\_right, cmy\_right = get\_intersection(c1x\_right, c1y\_right, cos\_t1,
+
+
+        /storage/anaconda3/envs/perfeval/lib/python3.6/site-packages/matplotlib/bezier.py in get\_intersection(cx1, cy1, cos\_t1, sin\_t1, cx2, cy2, cos\_t2, sin\_t2)
+         33     ad\_bc = a * d - b * c
+         34     if np.abs(ad\_bc) < 1.0e-12:
+    ---> 35         raise ValueError("Given lines do not intersect. Please verify that "
+         36                          "the angles are not equal or differ by 180 degrees.")
+         37 
+
+
+        ValueError: Given lines do not intersect. Please verify that the angles are not equal or differ by 180 degrees.
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 1440x1800 with 2 Axes>
+    \end{verbatim}
+
+    
+    \hypertarget{b}{%
+\subsubsection{b)}\label{b}}
+
+Interestingly, the mean/median of the Time Average is significantly
+lower than for the Event Average. Also, the confidence intervals are
+much smaller. Because with the event average, we use ``every'' speed
+data points once, the CI is much narrower. With time average, we
+probably don't pick some speeds and some might be picked twice, leading
+to a more uncertain CI.
+
+    \hypertarget{c}{%
+\subsubsection{c)}\label{c}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{curr\PYZus{}N} \PY{o}{=} \PY{l+m+mi}{30}
+         \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{get\PYZus{}average}\PY{p}{(}\PY{n}{records}\PY{p}{,} \PY{n}{curr\PYZus{}N}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{finding-ci-for-median}{%
+\paragraph{Finding CI for median}\label{finding-ci-for-median}}
+
+This is found using theorem 2.1. We have 30 values. So we can look up in
+the table. We must pick the values 10 and 21 of the sorted sequence.
+
+    \hypertarget{finding-ci-for-mean}{%
+\paragraph{Finding CI for mean}\label{finding-ci-for-mean}}
+
+We use theorem 2.2.2, with 30 values:
+\[\hat\mu \pm 0.196 s  \text{ with } s = \frac{1}{30}\sum(x_i-\hat\mu)^2\text{ and }\hat\mu = \frac{1}{30} \sum x_i\]
+We could have used theorem 2.2.3, as the values seem to be normally
+distributed, but as we have a lot of values, the two theorems are
+similar enough to use 2.2.2 without risks. In practice however, as
+\(n \geq 30\), the two are roughly equal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{plot\PYZus{}boxplots\PYZus{}ci}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{j}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{21}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{n}{curr\PYZus{}N}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{d}{%
+\subsubsection{d)}\label{d}}
+
+We observe that the confidence intervals for the median and the mean are
+significantly larger with \(N = 30\). As we grow to more samples, we can
+more effectively estimate the `'true'' distribution ; indeed, with more
+samples we are more confident to find the true median/mean, insteand of
+an effect of `'bad luck'' caused by some unlucky sampling.
+
+\hypertarget{problem-2}{%
+\subsection{Problem 2}\label{problem-2}}
+
+\hypertarget{a-b}{%
+\subsubsection{a) + b)}\label{a-b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{plots} \PY{k}{import} \PY{n}{plot\PYZus{}boxplots\PYZus{}pi}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{curr\PYZus{}N} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{get\PYZus{}average}\PY{p}{(}\PY{n}{records}\PY{p}{,} \PY{n}{curr\PYZus{}N}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+         \PY{n}{plot\PYZus{}boxplots\PYZus{}pi}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 98
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{curr\PYZus{}N} \PY{o}{=} \PY{l+m+mi}{60}
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{get\PYZus{}average}\PY{p}{(}\PY{n}{records}\PY{p}{,} \PY{n}{curr\PYZus{}N}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+         \PY{n}{plot\PYZus{}boxplots\PYZus{}pi}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 59
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{curr\PYZus{}N} \PY{o}{=} \PY{l+m+mi}{30}
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{get\PYZus{}average}\PY{p}{(}\PY{n}{records}\PY{p}{,} \PY{n}{curr\PYZus{}N}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+         \PY{n}{plot\PYZus{}boxplots\PYZus{}pi}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Note that we can't plot the PI based on order statistic here, as at
+\(n = 30 < 39\), we can't reach level 0.95.
+
+    \hypertarget{c}{%
+\subsubsection{c)}\label{c}}
+
+The Prediction Interval obtained with order statistics is extremely less
+precise than the one obtaines using estimates of mean and variance.
+Order statistics works better with a lot more data, than just 100 or 60.
+We see that the PI at 60 is the first and last sample, which yields
+absolutely no information: future points are confidently between the
+smallest and largest observed so far.
+
+\hypertarget{d}{%
+\subsubsection{d)}\label{d}}
+
+PI based on order statistics is virtually useless for the two first
+graphs, but consistently to the extremes. Interestingly, PI based on
+estimates of mean/variance is not affected linearly: it shifts slightly
+up between N=100 and N=60 (without obvious loss of precision), and
+shifts down again for N=30. The interval seems to be robust to a lower
+amount of data, and is still usable.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
