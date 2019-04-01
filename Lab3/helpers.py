@@ -95,3 +95,23 @@ def compute(lambda_, recompute=False, store=True, iterations=1):
     if store:
         df_final.to_csv(fname, index=False)
     return df
+
+def plot_and_save_jobs(df ,name):
+    interesting_times = np.sort(np.concatenate((df['Start'].values, df['T12'].values)))
+    type1_in_queue = []
+    type2_in_queue = []
+    for t in interesting_times:
+        type_ones = df[((df['Start'] - t) < 0) & ((df['T12'] - t > 0))]
+        type_twos = df[((df['T12'] - t) < 0) & ((df['T22'] - t > 0))]
+        type1_in_queue.append(len(type_ones))
+        type2_in_queue.append(len(type_twos))
+    fig = plt.figure(figsize=(15,5))
+    fig.add_subplot(2,1,1)
+    plt.plot(interesting_times, type1_in_queue, c="C0")
+    plt.title("Type 1 in queue")
+    fig.add_subplot(2,1,2)
+    plt.plot(interesting_times, type2_in_queue, c="orange");
+    plt.title("Type 2 in queue")
+    plt.tight_layout()
+    plt.savefig(name)
+    plt.show()
