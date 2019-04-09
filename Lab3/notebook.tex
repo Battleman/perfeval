@@ -1,0 +1,856 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework-3}{%
+\section{Homework 3}\label{homework-3}}
+
+Collaborators: * Olivier Cloux (236079) * Zoé Baraschi (219665)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \hypertarget{simulate}{%
+\section{Simulate}\label{simulate}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{compute}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df} \PY{o}{=} \PY{n}{compute}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arrived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Served}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of requests arrived and served}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{l+m+mi}{150}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arrived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{l+m+mi}{150}\PY{p}{]}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Served}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of requests arrived and served (zoomed)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{average-response-time-event-average}{%
+\subsubsection{average response time (event
+average)}\label{average-response-time-event-average}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}time difference between end of task, and beginning of task}
+        \PY{c+c1}{\PYZsh{} for each type of task}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T1\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} serv time for type 1}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T2\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} serv time for type2}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} serv time for type2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T1\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T2\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average response time for a job}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miliseconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{average-number-of-jobs-served-per-second}{%
+\subsubsection{Average number of jobs served per
+second}\label{average-number-of-jobs-served-per-second}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{served} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{sample\PYZus{}start\PYZus{}time} \PY{o+ow}{in} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{n}{served}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T21}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{sample\PYZus{}start\PYZus{}time}\PY{p}{)} \PY{o}{\PYZam{}} 
+                             \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{sample\PYZus{}start\PYZus{}time}\PY{o}{+}\PY{l+m+mi}{1000}\PY{p}{)}
+                            \PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average number of Type 1 jobs served per second: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{served}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Average number of Type 1 jobs served per second: 82.47
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{served} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{sample\PYZus{}start\PYZus{}time} \PY{o+ow}{in} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+            \PY{n}{served}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{sample\PYZus{}start\PYZus{}time}\PY{p}{)} \PY{o}{\PYZam{}} 
+                             \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{sample\PYZus{}start\PYZus{}time}\PY{o}{+}\PY{l+m+mi}{1000}\PY{p}{)}
+                            \PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average number of Type 2 jobs served per second: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{served}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Average number of Type 2 jobs served per second: 79.9
+
+    \end{Verbatim}
+
+    As we see, the number of jobs served per second is in both cases close
+to 80, as the server can keep up with the requests rate, of 80
+requests/seconds. So the queue being most of the time almose empty, the
+rate is obviously close to 80.
+
+    \hypertarget{section}{%
+\section{2}\label{section}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{lambdas} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{queues} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{items} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{plot\PYZus{}and\PYZus{}save\PYZus{}jobs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{lambdas}\PY{p}{:}
+             \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/lambda\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plot\PYZus{}and\PYZus{}save\PYZus{}jobs}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig/jobs\PYZus{}lambda\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{for-which-values-of-ux3bb-is-the-system-stationary}{%
+\paragraph{For which values of λ is the system
+stationary?}\label{for-which-values-of-ux3bb-is-the-system-stationary}}
+
+The graphs show a stationary regime for lambda in the range (25, 150).
+
+The system is stationary when the mean arrival time between 2 arrivals
+in the queue does not recede the sum of the mean of the log normal (1.5,
+0.6) and the uniform distribution (0.6, 1).
+
+As seen below, this is around 6.166 ms.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{p}{(}\PY{l+m+mf}{0.6}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.8}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sum of mean of log\PYZhy{}normal(1.5, 0.6)}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{and normal(0.6, 1) = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sum of mean of log-normal(1.5, 0.6) and normal(0.6, 1) =  6.165555971121974 ms
+
+    \end{Verbatim}
+
+    After looping through the values, we see that the max lambda for which
+there is a stationary regime is 162, after that the queue is saturated
+and the walk to infinity begins.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lambda = 162: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{1000}\PY{o}{/}\PY{l+m+mi}{162}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{requests/s,}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{lambda = 163:}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{l+m+mi}{1000}\PY{o}{/}\PY{l+m+mi}{163}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{requests/s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+lambda = 162:  6.172839506172839 requests/s, lambda = 163: 6.134969325153374 requests/s
+
+    \end{Verbatim}
+
+    \hypertarget{what-happens-on-the-plots-when-the-system-is-not-stationary}{%
+\paragraph{What happens on the plots when the system is not stationary
+?}\label{what-happens-on-the-plots-when-the-system-is-not-stationary}}
+
+The system becomes unstable once the input rate is larger than the
+service capacity.
+
+The buffer occupancy grows unbounded and the mean queue length
+increases. There is a walk to infinity.
+
+    \hypertarget{remove-transients}{%
+\section{3 Remove Transients}\label{remove-transients}}
+
+    \hypertarget{with-transient-present}{%
+\subsection{With transient present}\label{with-transient-present}}
+
+\hypertarget{lambda-60}{%
+\subsubsection{\texorpdfstring{\(\lambda = 60\)}{\textbackslash{}lambda = 60}}\label{lambda-60}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{get\PYZus{}type\PYZus{}i\PYZus{}in\PYZus{}queue}\PY{p}{,} \PY{n}{plot\PYZus{}type\PYZus{}i\PYZus{}in\PYZus{}queue}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df60} \PY{o}{=} \PY{n}{compute}\PY{p}{(}\PY{l+m+mi}{60}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{interesting\PYZus{}times60}\PY{p}{,} \PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{,} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}60} \PY{o}{=} \PY{n}{get\PYZus{}type\PYZus{}i\PYZus{}in\PYZus{}queue}\PY{p}{(}\PY{n}{df60}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{plot\PYZus{}type\PYZus{}i\PYZus{}in\PYZus{}queue}\PY{p}{(}\PY{n}{interesting\PYZus{}times60}\PY{p}{,} \PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{,} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ci-for-median}{%
+\paragraph{CI for median}\label{ci-for-median}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{ci\PYZus{}median}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{l}\PY{p}{,}\PY{n}{h} \PY{o}{=} \PY{n}{ci\PYZus{}median}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{interesting\PYZus{}times60}\PY{p}{)}\PY{p}{)}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The CI for median with lambda=60 are, }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{at 95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s2}{onfidence, between}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type1: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type2: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{a}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{p}{,} \PY{n}{b}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{b}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The CI for median with lambda=60 are, at 95\% confidence, between
+	type1: 1 and 1
+	type2: 0 and 1
+
+    \end{Verbatim}
+
+    \hypertarget{ci-for-mean}{%
+\paragraph{CI for mean}\label{ci-for-mean}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{ci\PYZus{}means\PYZus{}type1} \PY{o}{=} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{)}
+         \PY{n}{ci\PYZus{}means\PYZus{}type2} \PY{o}{=} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}\PY{p}{(}\PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The CI for median with lambda=60 are, at 95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s2}{onfidence,}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{between}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type1: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type2: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ci\PYZus{}means\PYZus{}type1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{ci\PYZus{}means\PYZus{}type1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                            \PY{n}{ci\PYZus{}means\PYZus{}type2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{ci\PYZus{}means\PYZus{}type2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The CI for median with lambda=60 are, at 95\% confidence,between
+	type1: 0.565 and 0.868
+	type2: 0.563 and 0.871
+
+    \end{Verbatim}
+
+    \hypertarget{lambda-160}{%
+\subsection{\texorpdfstring{\(\lambda = 160\)}{\textbackslash{}lambda = 160}}\label{lambda-160}}
+
+    \hypertarget{ci-for-median}{%
+\paragraph{CI for median}\label{ci-for-median}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df160} \PY{o}{=} \PY{n}{compute}\PY{p}{(}\PY{l+m+mi}{160}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         
+         \PY{n}{interesting\PYZus{}times160}\PY{p}{,} 
+         \PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{,} 
+         \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160} \PY{o}{=} \PY{n}{get\PYZus{}type\PYZus{}i\PYZus{}in\PYZus{}queue}\PY{p}{(}\PY{n}{df160}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}type\PYZus{}i\PYZus{}in\PYZus{}queue}\PY{p}{(}\PY{n}{interesting\PYZus{}times160}\PY{p}{,} \PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{,} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{l}\PY{p}{,}\PY{n}{h} \PY{o}{=} \PY{n}{ci\PYZus{}median}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{interesting\PYZus{}times60}\PY{p}{)}\PY{p}{)}
+         \PY{n}{type1\PYZus{}160\PYZus{}sorted} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+         \PY{n}{type2\PYZus{}160\PYZus{}sorted} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The CI for median with lambda=60 are, at 95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s2}{onfidence,}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{between}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type1: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type2: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{type1\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{type1\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{p}{,} 
+                                      \PY{n}{type2\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{,} \PY{n}{type2\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The CI for median with lambda=60 are, at 95\% confidence,between
+	type1: 95 and 96
+	type2: 95 and 96
+
+    \end{Verbatim}
+
+    \hypertarget{ci-for-mean}{%
+\paragraph{CI for mean}\label{ci-for-mean}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{ci\PYZus{}means\PYZus{}type1} \PY{o}{=} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+         \PY{n}{ci\PYZus{}means\PYZus{}type2} \PY{o}{=} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}\PY{p}{(}\PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The CI for mean with lambda=160 are, at 95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s2}{onfidence,}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{between}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type1: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{type2: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ and }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ci\PYZus{}means\PYZus{}type1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{ci\PYZus{}means\PYZus{}type1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                            \PY{n}{ci\PYZus{}means\PYZus{}type2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{ci\PYZus{}means\PYZus{}type2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The CI for mean with lambda=160 are, at 95\% confidence,between
+	type1: -143.253 and 339.018
+	type2: -141.591 and 337.356
+
+    \end{Verbatim}
+
+    \hypertarget{with-the-transient-removed}{%
+\subsection{With the transient
+removed}\label{with-the-transient-removed}}
+
+For \(\lambda = 60\), the analysis is the same as before, as there seems
+to be no transient. Indeed, the buffer is most of the time empty or
+nearly empty, steadily accross time. Thus we do not repeat the
+calculation.
+
+For \(\lambda = 160\), we use as transient period the time until the
+buffer size reaches the mean of both objects (that is 97.884).
+Everything before this threshold is reached is considered transient
+period
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Computing moment the threshold is first crossed}
+         \PY{n}{buffer\PYZus{}size} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160} \PY{o}{+} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+         \PY{n}{threshold} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{buffer\PYZus{}size}\PY{p}{)}
+         \PY{n}{threshold\PYZus{}crossing} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{buffer\PYZus{}size} \PY{o}{\PYZgt{}} \PY{n}{threshold}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{ci-for-median}{%
+\paragraph{CI for median}\label{ci-for-median}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}computing median on reduced array}
+         \PY{n}{med\PYZus{}l\PYZus{}ind}\PY{p}{,} \PY{n}{med\PYZus{}h\PYZus{}ind} \PY{o}{=} \PY{n}{ci\PYZus{}median}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{interesting\PYZus{}times160}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}lower and higher for type 1}
+         \PY{n}{med\PYZus{}l\PYZus{}type1} \PY{o}{=} \PY{n}{type1\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{o}{+}\PY{n}{med\PYZus{}l\PYZus{}ind}\PY{p}{]}
+         \PY{n}{med\PYZus{}h\PYZus{}type1} \PY{o}{=} \PY{n}{type1\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{o}{+}\PY{n}{med\PYZus{}h\PYZus{}ind}\PY{p}{]}
+         
+         \PY{n}{med\PYZus{}l\PYZus{}type2} \PY{o}{=} \PY{n}{type2\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{o}{+}\PY{n}{med\PYZus{}l\PYZus{}ind}\PY{p}{]}
+         \PY{n}{med\PYZus{}h\PYZus{}type2} \PY{o}{=} \PY{n}{type2\PYZus{}160\PYZus{}sorted}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{o}{+}\PY{n}{med\PYZus{}h\PYZus{}ind}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CI for median, lambda=160, no transient, at 95}\PY{l+s+si}{\PYZpc{} le}\PY{l+s+s2}{vel:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{Type1: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{Type2: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{med\PYZus{}l\PYZus{}type1}\PY{p}{,} \PY{n}{med\PYZus{}h\PYZus{}type1}\PY{p}{,} 
+                                  \PY{n}{med\PYZus{}l\PYZus{}type2}\PY{p}{,} \PY{n}{med\PYZus{}h\PYZus{}type2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CI for median, lambda=160, no transient, at 95\% level:
+	Type1: 105 - 106
+	Type2: 105 - 106
+
+    \end{Verbatim}
+
+    \hypertarget{ci-for-mean}{%
+\paragraph{CI for mean}\label{ci-for-mean}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{ci\PYZus{}mean\PYZus{}l\PYZus{}type1}\PY{p}{,} \PY{n}{ci\PYZus{}mean\PYZus{}h\PYZus{}type1} \PY{o}{=} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}\PY{p}{(}
+             \PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ci\PYZus{}mean\PYZus{}l\PYZus{}type2}\PY{p}{,} \PY{n}{ci\PYZus{}mean\PYZus{}h\PYZus{}type2} \PY{o}{=} \PY{n}{ci\PYZus{}mean\PYZus{}large\PYZus{}n}\PY{p}{(}
+             \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CI for mean, lambda=160, no transient, at 95}\PY{l+s+si}{\PYZpc{} le}\PY{l+s+s2}{vel:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{Type1: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{Type2: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ci\PYZus{}mean\PYZus{}l\PYZus{}type1}\PY{p}{,} \PY{n}{ci\PYZus{}mean\PYZus{}h\PYZus{}type1}\PY{p}{,} 
+                                  \PY{n}{ci\PYZus{}mean\PYZus{}l\PYZus{}type2}\PY{p}{,} \PY{n}{ci\PYZus{}mean\PYZus{}h\PYZus{}type2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CI for mean, lambda=160, no transient, at 95\% level:
+	Type1: -27.879 - 244.628
+	Type2: -15.961 - 233.702
+
+    \end{Verbatim}
+
+    \hypertarget{littles-law}{%
+\section{4 Little's Law}\label{littles-law}}
+
+    Little's Law: \(\lambda\overline{R}=\overline{N}\), where \(\lambda\) is
+the number of customer's arriving per second, \(\overline{R}\) is the
+average time a customer spends in the system and \(\overline{N}\) is the
+average number of customers observed in the system.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} |n \PYZhy{} lambda* r| = 0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}lambda = 60 (with and without transient is the same)}
+         \PY{n}{df60}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df60}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df60}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} serv time for type2}
+         \PY{n}{r} \PY{o}{=} \PY{n}{df60}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}60} \PY{o}{+} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}60}\PY{p}{)}
+         \PY{n}{lambda\PYZus{}} \PY{o}{=} \PY{l+m+mi}{60}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{n}{lambda\PYZus{}}\PY{o}{*}\PY{n}{r}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+696.2032113333277
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}without transient removal, lambda = 160}
+         \PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} serv time for type2}
+         \PY{n}{r} \PY{o}{=} \PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160} \PY{o}{+} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}
+         \PY{n}{lambda\PYZus{}} \PY{o}{=} \PY{l+m+mi}{160}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{n}{lambda\PYZus{}}\PY{o}{*}\PY{n}{r}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+203309.81944
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}with transient removal, lambda = 160}
+         \PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} serv time for type2}
+         \PY{n}{r} \PY{o}{=} \PY{n}{df160}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tot\PYZhy{}Serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{type1\PYZus{}in\PYZus{}queue\PYZus{}160} \PY{o}{+} \PY{n}{type2\PYZus{}in\PYZus{}queue\PYZus{}160}\PY{p}{)}\PY{p}{[}\PY{n}{threshold\PYZus{}crossing}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n}{lambda\PYZus{}} \PY{o}{=} \PY{l+m+mi}{160}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{n}{lambda\PYZus{}}\PY{o}{*}\PY{n}{r}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+207013.93200567894
+
+    \end{Verbatim}
+
+    So apparently, Little's law doesn't verify here. This strongly suggests
+a mistake earlier, but unfortunately we are unable to spot it.
+
+    \hypertarget{parameter-estimation-and-confidence-interval}{%
+\section{5 Parameter Estimation And Confidence
+Interval}\label{parameter-estimation-and-confidence-interval}}
+
+A new request arriving in the system is of type 1 with probability
+\(1 - \epsilon\) and of type 2 with probability \(\epsilon\) and we want
+to assume that \(\epsilon\) is zero or almost zero.
+
+First experiment: 10 random requests, all of type 1.
+
+The confidence interval for p when we observe z=0 successes is
+\(\lbrack0, p_0(n)\rbrack\), with
+\(p_0(n)=1-(\frac{1-\gamma}{2})^{\frac{1}{n}}\).
+
+For \(\gamma=0.95\) and \(n=10\), we have:
+\(p_0(10)=1-(\frac{1-0.95}{2})^{\frac{1}{10}}=0.308\)
+
+Confidence interval for \(\epsilon\): \(\lbrack0, 0.308\rbrack\)
+
+Confidence interval for the stability region of the system:
+
+Second experiment: In order to assure that \(\epsilon < 1\%\) with a
+\(95\%\) confidence, assuming that a sample is always a type 1 request,
+we want \(p_0(n) < 0.01\).
+
+\(1-(\frac{1-0.95}{2})^{\frac{1}{n}} < 0.01\)
+
+\((0.025)^{\frac{1}{n}} > 0.99\)
+
+\(\log{0.025^{\frac{1}{n}}} > \log{0.99}\)
+
+\(\frac{\log0.025}{n} > \log{0.99}\)
+
+\(\frac{-3.68888}{n}>-0.0100503\)
+
+\$ n \textgreater{} 367.04\$
+
+We need to pick 368 samples in order to assure \(\epsilon < 1\%\) with
+\(95\%\) confidence.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{import} \PY{n+nn}{math}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mf}{0.025}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{0.025}\PY{p}{)}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{0.99}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.30849710781876083
+367.0404161497511
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
